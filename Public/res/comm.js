@@ -1,16 +1,14 @@
 var server = io();
-console.log(server);
-server.on('initUser', function(clients){
-	for(var i = 1; i < clients.length; i++){
-		createNewSquare(clients[i-1]);
-	}
-	localSquareID = clients.length;
-
-});
-server.on('addNewUser', function(clientInfo){
-	createNewSquare(clientInfo);
-});
-server.on('userLeft', function(index){
-	console.log("removing user in index " + index);
-	squares.splice(index, 1);
+var info = {
+	position	:[0,0],
+	color		:genColor()
+}
+function genColor(){
+	//Generates a random 6 digit number to be used as a color
+	var num = Math.floor(Math.random() * (999999-111111)) + 111111;
+	return "#" + num;
+};
+$(document).mousemove(function(event){
+	info.position[0] = event.pageX;
+	info.position[1] = event.pageY;
 });
